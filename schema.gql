@@ -1,0 +1,73 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @published on FIELD_DEFINITION
+
+type Book {
+  id: Float!
+  title: String!
+  author: Float!
+  year: String!
+  genre: String!
+}
+
+type Author implements Person {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  yearOfBirth: String!
+  nationality: Nationality!
+  books(year: String): [Book!]
+}
+
+interface Person {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  yearOfBirth: String!
+  nationality: Nationality!
+}
+
+"""Possible nationalities"""
+enum Nationality {
+  """Some description about this value"""
+  British
+
+  """Some description about this value"""
+  American
+}
+
+type Query {
+  book(id: Float!): Book!
+  title(title: String!): Book!
+  booksByAuthor(author: Float!): [Book!]!
+  booksByYear(year: Float!): [Book!]!
+  books: [Book!]!
+  authors: [Author!]!
+  author(firstName: String!, lastName: String!): Author!
+}
+
+type Mutation {
+  addBook(bookDetails: BookInputDTO!): Book!
+  addAuthor(authorDetails: AuthorInputDTO!): Author!
+}
+
+input BookInputDTO {
+  title: String!
+  author: Float!
+  year: String!
+  genre: String!
+}
+
+input AuthorInputDTO {
+  firstName: String!
+  lastName: String!
+  yearOfBirth: String!
+  nationality: String!
+}
+
+type Subscription {
+  bookAdded: Book!
+  specificBookAdded(title: String!): Book!
+}
